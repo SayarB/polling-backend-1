@@ -1,0 +1,41 @@
+GET http://localhost:8000/
+###
+POST http://localhost:8000/
+Content-Type: application/json
+
+{
+    "title":"question3",
+    "requestid":"2345",
+    "options":[{"text":"option13", "numOfRes":0},{"text":"option21", "numOfRes":0}]
+}
+###
+GET http://localhost:8000/6421d6f07527d84834717d89
+###
+GET http://localhost:8000/users/
+###
+POST http://localhost:8000/user
+Content-Type: application/json
+
+{
+    "name": "Yash",
+    "email": "yash@gmail.com",
+    "password": "yash123"
+}
+###
+GET http://localhost:8000/poll?authorid=6421dd67c05338aafbb3fa7f
+###
+POST http://localhost:8000/login
+Content-Type: application/json
+
+{
+    "email": "yash@gmail.com",
+    "password": "yash123"
+}
+
+###
+POST http://localhost:8000/answer/6430477baede5a33784579c1
+Content-Type: application/json
+
+{
+    "option": "option13"
+}
