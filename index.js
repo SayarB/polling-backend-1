@@ -2,7 +2,7 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const app = express()
-app.use(cors({credentials:true, origin:'http://localhost:3000'}))
+app.use(cors({credentials:true, origin:['https://89a1-136-233-9-123.ngrok-free.app']}))
 app.use(express.json())
 app.use(cookieParser())
 
