@@ -1,8 +1,8 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
-
+const cors = require('cors')
 const app = express()
-
+app.use(cors({credentials:true, origin:'http://localhost:3000'}))
 app.use(express.json())
 app.use(cookieParser())
 
@@ -55,9 +55,27 @@ app.get('/poll', async function (req, res) {
 app.post('/user', async function (req, res) {
     console.log(req.body)
     const obj = { name: req.body.name, email: req.body.email, password: req.body.password }
-    const user = new User(obj)
-    await user.save()
-    res.sendStatus(200)
+    try{
+        const user = new User(obj)
+        await user.save()
+        console.log(user)
+        res.cookie('user', user._id.toString())
+        res.status(200).json(user)
+    }catch(e){
+        console.log(e)
+        res.sendStatus(500)
+    }
+})
+app.get('/user/verify', async function(req,res){
+    
+    const {user:id} = req.cookies
+    console.log(id)
+    if(!id){
+        res.json({verified:false})
+    }else{
+        const user =  await User.findById(id)
+        res.json({verified:true})
+    }
 })
 
 /* post request for login */
@@ -65,6 +83,7 @@ app.post('/login', async function (req, res) {
     const email = req.body.email
     const password = req.body.password
     const user = await User.findOne({ email: email }).exec();
+    console.log(user)
     if (user) {
         if (user.password === password) {
             res.cookie('user', user._id)
@@ -102,12 +121,11 @@ app.post('/', async function (req, res) {
     const user = await User.findById(userid)
     if (user) {
         const ques = req.body.title
-        const obj = { authorid: userid, question: ques, options: req.body.options }
+        const obj = { authorid: userid, question: ques, options: req.body.options.map((opt)=>({text:opt, numOfRes:0})) }
         const poll = new Poll(obj)
         await poll.save()
-        res.sendStatus(200)
+        res.status(200).json(poll)
     }
-
     else {
         res.send(404).json({ message: 'User not found' })
     }
@@ -128,7 +146,7 @@ app.post('/answer/:id', async function(req, res) {
         }
     }
     await poll.save();
-    res.json({success:true})
+    res.json({success:true,poll})
     }catch(e)
     {return res.status(404).json({error:"not found"})}
     
