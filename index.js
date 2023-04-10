@@ -87,7 +87,7 @@ app.post('/login', async function (req, res) {
     if (user) {
         if (user.password === password) {
             res.cookie('user', user._id)
-            res.json({ success: true })
+            res.status(200).json({ success: true })
         }
 
         else {
