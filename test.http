@@ -1,18 +1,18 @@
-GET http://localhost:8000/
+GET http://localhost:8000/polls
 ###
-POST http://localhost:8000/
+POST http://localhost:8000/polls
 Content-Type: application/json
 
 {
     "title":"question3",
-    "options":[{"text":"option13", "numOfRes":0},{"text":"option21", "numOfRes":0}]
+    "options":["option13","option21"]
 }
 ###
-GET http://localhost:8000/6421d6f07527d84834717d89
+GET http://localhost:8000/polls/64400f8f9021b65535a0ad79
 ###
-GET http://localhost:8000/users/
+GET http://localhost:8000/users
 ###
-POST http://localhost:8000/user
+POST http://localhost:8000/users
 Content-Type: application/json
 
 {
@@ -23,18 +23,63 @@ Content-Type: application/json
 ###
 GET http://localhost:8000/poll?authorid=6421dd67c05338aafbb3fa7f
 ###
-POST http://localhost:8000/login
+
+
+POST http://localhost:8000/users/login
 Content-Type: application/json
 
 {
-    "email": "yash@gmail.com",
-    "password": "yash123"
+    "email": "chandu@gmail.com",
+    "password": "helloworld"
 }
 
 ###
-POST http://localhost:8000/answer/6430477baede5a33784579c1
+
+GET http://localhost:8000/exams
+
+###
+
+GET http://localhost:8000/exams/643ee6b7a2fd98f5ea6cc2ef
+
+###
+
+POST http://localhost:8000/exams
 Content-Type: application/json
 
 {
-    "option": "option13"
+    "name":"General Knowledge",
+    "questions":[
+        {
+            "text":"Name a flightless bird.",
+            "multiCorrect":false,
+            "options":[{"text":"Ostrich","isCorrect":true},{"text":"Eagle", "isCorrect":false}]
+        },
+        {
+            "text":"Capital of Argentina",
+            "multiCorrect":false,
+            "options":[{"text":"Rio de Janiero","isCorrect":true},{"text":"Buenos Aires", "isCorrect":true}]
+        }
+    ],
+    "marksTotal":4
 }
+
+###
+POST http://localhost:8000/exams/respond/644038c534a760a1e6f75bd4
+Content-Type: application/json
+
+{
+    "responses":[[0],[0]]
+}
+
+###
+
+DELETE http://localhost:8000/exams
+
+###
+DELETE http://localhost:8000/exams/responses
+###
+
+GET http://localhost:8000/exams/responses/6440205ea026f9cb2e992d27
+
+###
+GET http://localhost:8000/users/details
