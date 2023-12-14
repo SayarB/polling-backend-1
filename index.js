@@ -8,7 +8,7 @@ const examRoutes = require('./routes/examRoutes')
 
 
 
-app.use(cors({credentials:true, origin:['https://polling-sayarb.netlify.app']}))
+app.use(cors({credentials:true, origin:['http://localhost:3000','https://polling-sayarb.netlify.app']}))
 app.use(express.json())
 app.use(cookieParser())
 

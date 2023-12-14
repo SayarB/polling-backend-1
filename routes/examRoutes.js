@@ -25,7 +25,7 @@ router.get('/:id',async (req,res)=>{
     const questions = exam.questions.map(ques=>{
         return {text:ques.text, multiCorrect:ques.multiCorrect, options:ques.options.map(opt=>opt.text)}
     })
-    const examData = {_id:exam._id, marksTotal:exam.marksTotal,questions, responded:responseIfAny.length>0} 
+    const examData = {_id:exam._id, marksTotal:exam.marksTotal,questions, responded:responseIfAny.length>0, marksObtained:responseIfAny.length>0?responseIfAny[0].marks:0} 
     if(!exam)
         return res.json({error:"exam id not valid"})
     res.json(examData)
