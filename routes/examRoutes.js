@@ -87,6 +87,7 @@ router.post('/', async(req,res)=>{
 })
 
 router.delete('/',async(req,res)=>{
+    await QuizResponse.deleteMany()
     await Quiz.deleteMany()
     res.json({success:true})
 })
